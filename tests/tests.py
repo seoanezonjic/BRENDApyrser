@@ -24,9 +24,9 @@ PR	#3# Klebsiella aerogenes   <1>
 PR	#4# Bacillus licheniformis   <10>
 PR	#5# Rhodococcus erythropolis   <7>
 PR	#6# Columba livia   <2,3>
-PR	#7# Klebsiella pneumoniae Q48436 UniProt <6>
-PR	#8# Paenibacillus polymyxa KC505218 GenBank <9>
-PR	#9# Mycobacterium sp. W8VSK8 UniProt <11>
+PR	#7# Klebsiella pneumoniae {Q48436; source: UniProt} <6>
+PR	#8# Paenibacillus polymyxa {KC505218; source: GenBank} <9>
+PR	#9# Mycobacterium sp. {W8VSK8; source: UniProt} <11>
 
 RECOMMENDED_NAME
 RN	diacetyl reductase [(S)-acetoin forming]
@@ -426,6 +426,15 @@ class TestReaction(unittest.TestCase):
             rxn.systematic_name,
             "(S)-acetoin:NAD+ oxidoreductase",
             "Failed to correctly retrieve systematic reaction name",
+        )
+
+    def test_proteins(self):
+        rxn = Reaction(rxn_data)
+        prots = [[p, data['proteinID']] for p, data in rxn.proteins.items()]
+        self.assertEqual(
+            prots,
+            [['1', ''], ['2', ''], ['3', ''], ['4', ''], ['5', ''], ['6', ''], ['7', 'Q48436'], ['8', 'KC505218'], ['9', 'W8VSK8']],
+            "Failed to correctly retrieve protein ids",
         )
 
     def test_KMvalues(self):

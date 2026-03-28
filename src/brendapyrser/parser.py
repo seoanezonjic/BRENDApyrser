@@ -247,10 +247,16 @@ class Reaction:
         for line in lines:
             res = self.extractDataLineInfo(line)
             species_name, protein_ID = self.__splitSpeciesFromProteinID(res["value"])
+            prot_id_source = ''
+            if res['specific_info'] != '':
+                prot_id, source = res['specific_info'].split(';')
+                protein_ID = prot_id
+                prot_id_source = source.split(':')[1].strip()
             species[res["species"][0]] = {
                 "name": species_name,
                 "proteinID": protein_ID,
                 "refs": res["refs"],
+                "prot_id_source": prot_id_source
             }
         return species
 
