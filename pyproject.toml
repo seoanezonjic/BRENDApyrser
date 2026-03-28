@@ -24,7 +24,7 @@ packages = [{ include = "brendapyrser", from = "src" }]
 [tool.poetry.dependencies]
 python = "^3.8"
 numpy = "^1.20.2"
-pandas = "^1.2.4"
+pandas = "^2.0.0"
 importlib-metadata = "^4.0.1"
 
 [tool.ruff]
