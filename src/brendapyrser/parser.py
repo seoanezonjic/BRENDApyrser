@@ -249,9 +249,13 @@ class Reaction:
             species_name, protein_ID = self.__splitSpeciesFromProteinID(res["value"])
             prot_id_source = ''
             if res['specific_info'] != '':
-                prot_id, source = res['specific_info'].split(';')
-                protein_ID = prot_id
-                prot_id_source = source.split(':')[1].strip()
+                pair_values = res['specific_info'].split(';')
+                if len(pair_values) == 1:
+                    protein_ID = pair_values[0]
+                    prot_id_source = 'unk'
+                else:
+                    protein_ID, source = res['specific_info'].split(';')
+                    prot_id_source = source.split(':')[1].strip()
             species[res["species"][0]] = {
                 "name": species_name,
                 "proteinID": protein_ID,
